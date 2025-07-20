@@ -8,20 +8,18 @@ type NoteDetailsProps = {
 
 const NoteDetails = async ({ params }: NoteDetailsProps) => {
   const queryClient = new QueryClient();
-  const response = await params;
+    const response = await params;
 
   await queryClient.prefetchQuery({
-    queryKey: ['note', response.id],
+    queryKey: ["note", response.id],
     queryFn: () => fetchNoteById(Number(response.id)),
   });
 
   return (
-    <div>
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <NoteDetailsClient />
-      </HydrationBoundary>
-    </div>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <NoteDetailsClient />
+    </HydrationBoundary>
   );
-};
+}
 
 export default NoteDetails;
