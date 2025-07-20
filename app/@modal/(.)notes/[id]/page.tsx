@@ -9,11 +9,10 @@ type NotePreviewProps = {
 const NotePreview = async ({ params }: NotePreviewProps) => {
   const queryClient = new QueryClient();
   const { id } = await params;
-  const data = await fetchNoteById(Number(id));
 
   await queryClient.prefetchQuery({
-    queryKey: ['note', data.id],
-    queryFn: () => fetchNoteById(data.id),
+    queryKey: ['note', id],
+    queryFn: () => fetchNoteById(Number(id)),
   });
 
   return (
